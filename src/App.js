@@ -1,24 +1,18 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/Header";
-import Balance from "./components/Balance";
-import IncomeExpenses from "./components/IncomeExpenses";
-import TransactionList from "./components/TransactionList";
-import Income from "./components/Income";
-import Expenses from "./components/Expenses";
+import Dashboard from "./components/Dashboard";
+import ProtectedRoute from "./protectedRoute";
+import Signin from "./components/Signin";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { GlobalProvider } from "./context/globalState";
 
 function App() {
   return (
     <GlobalProvider>
-      <Header />
-      <div className='container'>
-        <Balance />
-        <IncomeExpenses />
-        <TransactionList />
-        <Income />
-        <Expenses />
-      </div>
+      <Router>
+        <Route component={Signin} exact path='/' />
+        <ProtectedRoute component={Dashboard} exact path='/dashboard' />
+      </Router>
     </GlobalProvider>
   );
 }

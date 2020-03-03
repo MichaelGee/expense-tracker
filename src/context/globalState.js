@@ -1,5 +1,6 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import AppReducer from "./AppReducer";
+import app from "../fbase";
 
 const initialState = {
   transactions: []
@@ -9,6 +10,11 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    app.auth().onAuthStateChanged(setCurrentUser);
+  }, []);
 
   const deleteTransaction = id => {
     dispatch({
@@ -29,7 +35,8 @@ export const GlobalProvider = ({ children }) => {
       value={{
         transactions: state.transactions,
         deleteTransaction,
-        addTransaction
+        addTransaction,
+        currentUser
       }}
     >
       {children}

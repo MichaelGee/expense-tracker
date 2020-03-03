@@ -18,7 +18,7 @@ const Expenses = () => {
 
   return (
     <div>
-      <h3>Add new expense transaction</h3>
+      <h3 className='expense-header'>Add new expense transaction</h3>
       <div className='transaction-card'>
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
