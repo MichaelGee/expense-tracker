@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/globalState";
+import { db } from "../fbase";
 
 const Income = () => {
   const [text, setText] = useState("");
@@ -14,6 +15,9 @@ const Income = () => {
       amount: +amount
     };
     addTransaction(newTransaction);
+    db.collection("transactions")
+      .doc("income")
+      .set({ newTransaction });
   };
 
   return (
