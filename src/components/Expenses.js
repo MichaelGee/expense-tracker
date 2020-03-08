@@ -15,9 +15,7 @@ const Expenses = () => {
       amount: +amount
     };
     addTransaction(newTransaction);
-    /* db.collection("transactions")
-      .doc("expense")
-      .set({ newTransaction }); */
+    db.collection("transactions").add({ ...newTransaction });
   };
 
   return (

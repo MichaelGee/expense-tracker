@@ -15,6 +15,7 @@ const Income = () => {
       amount: +amount
     };
     addTransaction(newTransaction);
+    db.collection("transactions").add({ ...newTransaction });
   };
 
   return (

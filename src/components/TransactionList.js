@@ -7,10 +7,13 @@ const TransactionList = () => {
   const { transactions } = useContext(GlobalContext);
 
   const trans = transactions.map(transaction => transaction);
-  console.log(trans);
+
   db.collection("transactions")
-    .doc("income")
-    .set({ trans });
+    .get()
+    .then(querySnapshot => {
+      const data = querySnapshot.docs.map(doc => doc.data());
+      console.log(data); // array of transactions objects
+    });
 
   return (
     <div>
