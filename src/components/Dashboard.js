@@ -4,7 +4,6 @@ import Balance from "./Balance";
 import IncomeExpenses from "./IncomeExpenses";
 import TransactionList from "./TransactionList";
 import Income from "./Income";
-import Expenses from "./Expenses";
 
 const Dashboard = () => {
   return (
@@ -13,9 +12,8 @@ const Dashboard = () => {
         <Header />
         <Balance />
         <IncomeExpenses />
-        <TransactionList />
+
         <Income />
-        <Expenses />
       </div>
     </div>
   );

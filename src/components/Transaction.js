@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+/* import React, { useContext } from "react";
 import { GlobalContext } from "../context/globalState";
 
 const Transaction = ({ transaction }) => {
@@ -21,4 +21,4 @@ const Transaction = ({ transaction }) => {
   );
 };
 
-export default Transaction;
+export default Transaction; */
