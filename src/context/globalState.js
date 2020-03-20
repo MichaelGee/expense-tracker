@@ -1,7 +1,6 @@
 import React, { createContext, useReducer, useEffect, useState } from "react";
 import AppReducer from "./AppReducer";
 import app from "../fbase";
-import { db } from "../fbase";
 
 const initialState = {
   transactions: []

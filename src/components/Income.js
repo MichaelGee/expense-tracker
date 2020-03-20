@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../context/globalState";
 import { db } from "../fbase";
+import firebase from "firebase";
 
 const Income = () => {
   const [text, setText] = useState("");
@@ -9,19 +10,33 @@ const Income = () => {
   const { deleteTransaction } = useContext(GlobalContext);
   const [trans, setTrans] = useState([]);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
+  useEffect(() => {
     const fetchData = async () => {
       await db
         .collection("transactions")
+        .orderBy("createdAt")
         .get()
         .then(querySnapshot => {
           const data = querySnapshot.docs.map(doc => doc.data());
           setTrans(data.map(amount => amount)); // array of transactions objects
         });
     };
+    fetchData();
+  }, []);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const fetchData = async () => {
+      await db
+        .collection("transactions")
+        .orderBy("createdAt")
+        .get()
+        .then(querySnapshot => {
+          const data = querySnapshot.docs.map(doc => doc.data());
+          setTrans(data.map(amount => amount)); // array of transactions objects
+        });
+    };
     fetchData();
 
     const newTransaction = {
@@ -30,7 +45,15 @@ const Income = () => {
       amount: +amount
     };
     addTransaction(newTransaction);
-    db.collection("transactions").add({ ...newTransaction });
+
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+    db.collection("transactions").add({
+      ...newTransaction,
+      createdAt: timestamp()
+    });
+
+    setText("");
+    setAmount("");
   };
 
   return (
